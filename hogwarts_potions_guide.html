@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potions Practice — Hogwarts 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --parch:#fdf6e3;--parch-d:#f0e6c8;--parch-m:#e8d5a0;
+  --ink:#1a1208;--muted:#4a3c1a;
+  --gold:#c9973a;--gold-d:#8a6420;--gold-l:#f0d080;
+  --navy:#0d0d2a;--purple:#4a1a72;--purp-l:#ede0f8;
+  --green:#1a4a1a;--green-l:#e8f5e0;
+  --teal:#0a3a3a;--teal-l:#d8f0ee;
+  --red:#7f0909;--red-l:#fdeaea;
+}
+body{
+  background:var(--parch);
+  font-family:'EB Garamond',serif;
+  color:var(--ink);
+  line-height:1.7;
+  max-width:820px;
+  margin:0 auto;
+  padding:0;
+}
+
+/* ── COVER ── */
+.cover{
+  background:var(--navy);
+  padding:3rem 2.5rem 2.5rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,#1a1a3a 0%,#0d0d2a 60%);
+}
+.cover-stars{
+  position:relative;z-index:1;
+  font-size:10px;letter-spacing:10px;color:var(--gold);opacity:0.4;
+  display:block;margin-bottom:1.5rem;
+}
+.cover-cauldron{
+  position:relative;z-index:1;
+  font-size:56px;display:block;margin-bottom:0.75rem;
+  filter:drop-shadow(0 0 16px rgba(201,151,58,0.5));
+}
+.cover-eyebrow{
+  position:relative;z-index:1;
+  font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:4px;
+  color:var(--gold);opacity:0.7;text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.cover h1{
+  position:relative;z-index:1;
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(1.4rem,4vw,2rem);
+  color:var(--gold-l);line-height:1.2;margin-bottom:0.4rem;
+}
+.cover-sub{
+  position:relative;z-index:1;
+  font-size:clamp(0.9rem,2vw,1.1rem);
+  color:var(--gold);font-style:italic;margin-bottom:1.2rem;
+}
+.cover-rule{width:60px;height:1px;background:var(--gold);margin:0.8rem auto;position:relative;z-index:1}
+.cover-detail{
+  position:relative;z-index:1;
+  font-family:'Cinzel',serif;font-size:0.65rem;
+  color:#c9973a55;letter-spacing:3px;text-transform:uppercase;
+}
+
+/* ── INTRO ── */
+.intro{
+  padding:2rem 2rem 1rem;
+  border-bottom:1px solid var(--parch-m);
+}
+.intro-head{
+  font-family:'Cinzel',serif;font-size:1.2rem;
+  color:var(--ink);margin-bottom:0.5rem;
+}
+.intro p{font-size:0.95rem;color:var(--muted);margin-bottom:0.6rem}
+.snape-quote{
+  border-left:3px solid var(--gold);
+  background:var(--parch-d);
+  padding:0.8rem 1rem;margin:1rem 0;
+  border-radius:0 4px 4px 0;
+}
+.snape-quote p{font-size:0.9rem;font-style:italic;color:var(--muted)}
+.snape-quote .attribution{
+  font-family:'Cinzel',serif;font-size:0.65rem;
+  color:var(--gold-d);letter-spacing:1px;margin-top:0.3rem;
+}
+
+/* ── POTION CARDS ── */
+.potions-section{padding:1.5rem 2rem}
+.section-title{
+  font-family:'Cinzel',serif;font-size:1.4rem;
+  color:var(--ink);margin-bottom:0.25rem;
+  padding-bottom:0.75rem;
+  border-bottom:2px solid var(--parch-m);
+}
+.section-sub{font-size:0.88rem;color:var(--muted);font-style:italic;margin-bottom:1.5rem}
+
+.potion-card{
+  border-radius:6px;
+  margin-bottom:2.5rem;
+  overflow:hidden;
+  border:1px solid;
+  page-break-inside:avoid;
+}
+
+/* Card header */
+.potion-header{
+  padding:1.2rem 1.5rem;
+  display:flex;align-items:flex-start;gap:1rem;
+}
+.potion-icon{font-size:2.4rem;flex-shrink:0;line-height:1}
+.potion-title-block{}
+.potion-level{
+  font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:3px;
+  text-transform:uppercase;margin-bottom:0.2rem;display:block;
+}
+.potion-name{
+  font-family:'Cinzel Decorative',serif;font-size:1.15rem;
+  line-height:1.2;margin-bottom:0.2rem;
+}
+.potion-latin{font-size:0.82rem;font-style:italic;opacity:0.8}
+.potion-effect-badge{
+  display:inline-block;padding:3px 12px;border-radius:12px;
+  font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:1px;
+  margin-top:0.4rem;
+}
+
+/* Card body */
+.potion-body{
+  padding:1.2rem 1.5rem;
+  background:var(--parch);
+}
+.potion-lore{
+  font-size:0.88rem;color:var(--muted);font-style:italic;
+  margin-bottom:1rem;padding-bottom:0.8rem;
+  border-bottom:1px solid var(--parch-m);
+}
+.potion-lore strong{font-style:normal;font-family:'Cinzel',serif;font-size:0.8rem}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem}
+@media(max-width:500px){.two-col{grid-template-columns:1fr}}
+
+.ingredients-head,.instructions-head{
+  font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold-d);
+  margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem;
+}
+.ingredient-list{list-style:none;padding:0}
+.ingredient-list li{
+  font-size:0.88rem;color:var(--muted);
+  padding:0.25rem 0;border-bottom:1px dashed var(--parch-m);
+  display:flex;align-items:flex-start;gap:0.4rem;
+}
+.ingredient-list li:last-child{border-bottom:none}
+.ing-icon{flex-shrink:0;font-size:0.85rem}
+.ing-amount{
+  font-family:'Cinzel',serif;font-size:0.7rem;
+  color:var(--gold-d);min-width:2.5rem;flex-shrink:0;
+}
+
+.instructions-list{list-style:none;padding:0;counter-reset:steps}
+.instructions-list li{
+  font-size:0.88rem;color:var(--muted);
+  padding:0.35rem 0 0.35rem 2rem;
+  border-bottom:1px dashed var(--parch-m);
+  position:relative;counter-increment:steps;
+}
+.instructions-list li:last-child{border-bottom:none}
+.instructions-list li::before{
+  content:counter(steps);
+  position:absolute;left:0;top:0.35rem;
+  font-family:'Cinzel',serif;font-size:0.72rem;
+  width:1.4rem;height:1.4rem;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:var(--gold-d);color:var(--parch);
+  font-weight:700;flex-shrink:0;
+}
+
+.potion-purpose{
+  border-radius:4px;padding:0.75rem 1rem;
+  margin-top:1rem;
+}
+.potion-purpose-head{
+  font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:0.3rem;display:block;
+}
+.potion-purpose-text{font-size:0.88rem}
+
+.photo-prompt{
+  background:var(--parch-d);
+  border:1px dashed var(--gold);border-radius:4px;
+  padding:0.6rem 1rem;margin-top:0.8rem;
+  font-size:0.82rem;color:var(--muted);text-align:center;
+  font-style:italic;
+}
+.photo-prompt strong{font-style:normal;font-family:'Cinzel',serif;font-size:0.72rem;color:var(--gold-d)}
+
+.safety-note{
+  background:#fffbe6;border-left:3px solid #c9973a;
+  padding:0.5rem 0.8rem;margin-top:0.6rem;border-radius:0 4px 4px 0;
+  font-size:0.8rem;color:#5a4a00;
+}
+.safety-note strong{font-family:'Cinzel',serif;font-size:0.72rem}
+
+/* ── COLOR THEMES per potion ── */
+.potion-card.green{border-color:#1a4a2a}
+.potion-card.green .potion-header{background:linear-gradient(135deg,#0a2a12,#1a4a2a)}
+.potion-card.green .potion-level{color:#88cc88}
+.potion-card.green .potion-name{color:#c8f0c8}
+.potion-card.green .potion-latin{color:#88cc8888}
+.potion-card.green .potion-effect-badge{background:#88cc8822;color:#88cc88;border:1px solid #88cc8844}
+.potion-card.green .instructions-list li::before{background:#1a6a2a}
+
+.potion-card.purple{border-color:var(--purple)}
+.potion-card.purple .potion-header{background:linear-gradient(135deg,#2a0a3a,var(--purple))}
+.potion-card.purple .potion-level{color:#cc99ee}
+.potion-card.purple .potion-name{color:#f0d0ff}
+.potion-card.purple .potion-latin{color:#cc99ee88}
+.potion-card.purple .potion-effect-badge{background:#cc99ee22;color:#cc99ee;border:1px solid #cc99ee44}
+.potion-card.purple .instructions-list li::before{background:var(--purple)}
+
+.potion-card.teal{border-color:#0a5a5a}
+.potion-card.teal .potion-header{background:linear-gradient(135deg,#02282a,#0a5a5a)}
+.potion-card.teal .potion-level{color:#88dddd}
+.potion-card.teal .potion-name{color:#c0f0f0}
+.potion-card.teal .potion-latin{color:#88dddd88}
+.potion-card.teal .potion-effect-badge{background:#88dddd22;color:#88dddd;border:1px solid #88dddd44}
+.potion-card.teal .instructions-list li::before{background:#0a7a7a}
+
+/* ── FOOTER ── */
+.guide-footer{
+  background:var(--navy);color:var(--gold);
+  padding:1.5rem 2rem;text-align:center;
+}
+.guide-footer p{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.3rem}
+.guide-footer .sig{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:1px;color:var(--gold-d);margin-top:0.5rem}
+
+/* ── PRINT ── */
+@media print{
+  body{max-width:none}
+  .potion-card{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <span class="cover-stars">★ ✦ ★ ✦ ★ ✦ ★ ✦ ★</span>
+  <span class="cover-cauldron">🧪</span>
+  <div class="cover-eyebrow">Hogwarts School of Witchcraft &amp; Wizardry</div>
+  <h1>Potions Practice</h1>
+  <div class="cover-sub">A Beginner's Field Guide to Magical Brewing</div>
+  <div class="cover-rule"></div>
+  <div class="cover-detail">Your Journey Begins · Summer 2026 · Book One</div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-head">Before You Begin</div>
+  <p>In Chapter Eight of <em>Harry Potter and the Sorcerer's Stone</em>, Professor Snape surveys his new first-year class and asks a question no one expects: <em>"What would I get if I added powdered root of asphodel to an infusion of wormwood?"</em> Harry doesn't know. Neither does anyone else.</p>
+  <p>But Snape's point is not about the answer. It is about something deeper — that potions are not just mixing things together. They are about precision, patience, and paying attention to what happens when ordinary ingredients become something extraordinary.</p>
+  <div class="snape-quote">
+    <p>"I don't expect you will really understand the beauty of the softly simmering cauldron with its shimmering fumes, the delicate power of liquids that creep through human veins, bewitching the mind, ensnaring the senses..."</p>
+    <div class="attribution">— Professor Severus Snape · Chapter Eight · The Potions Master</div>
+  </div>
+  <p>The three potions below can be brewed at home using things you already have. Each one is tied to something that happens in Book One. Name your potion, photograph it dramatically, and submit it to earn <strong>10 House Points</strong>.</p>
+</div>
+
+<!-- POTIONS -->
+<div class="potions-section">
+  <div class="section-title">Three Potions to Brew</div>
+  <div class="section-sub">Choose one — or brew all three. Each earns 10 House Points.</div>
+
+  <!-- ═══ POTION 1: TROLL BOGEY REPELLENT ═══ -->
+  <div class="potion-card green">
+    <div class="potion-header">
+      <div class="potion-icon">🧌</div>
+      <div class="potion-title-block">
+        <span class="potion-level">⭐ Beginner · Ages 6 and up · No heat required</span>
+        <div class="potion-name">Troll Bogey Repellent</div>
+        <div class="potion-latin">Repello Stultorum Nasi</div>
+        <div class="potion-effect-badge">Keeps trolls at a safe distance · probably</div>
+      </div>
+    </div>
+    <div class="potion-body">
+      <div class="potion-lore">
+        <strong>Book One Connection —</strong> In Chapter Ten, a fully grown mountain troll is let loose in the dungeons of Hogwarts on Halloween. It ends up in the girls' bathroom, where Harry and Ron follow it to rescue Hermione. Ron successfully casts <em>Wingardium Leviosa</em> to levitate the troll's own club and knock it unconscious. The troll's distinguishing characteristic — aside from being twelve feet tall and smelling terrible — is an enormous quantity of bogeys. This potion was likely invented by Hogwarts groundskeepers shortly thereafter.
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="ingredients-head">🫙 Ingredients</div>
+          <ul class="ingredient-list">
+            <li><span class="ing-icon">🟢</span><span class="ing-amount">½ cup</span>White school glue (Elmer's)</li>
+            <li><span class="ing-icon">💧</span><span class="ing-amount">¼ cup</span>Water</li>
+            <li><span class="ing-icon">🎨</span><span class="ing-amount">3–5 drops</span>Green food coloring</li>
+            <li><span class="ing-icon">✨</span><span class="ing-amount">1 pinch</span>Green or silver glitter</li>
+            <li><span class="ing-icon">🧂</span><span class="ing-amount">½ tsp</span>Baking soda</li>
+            <li><span class="ing-icon">🫧</span><span class="ing-amount">1 tbsp</span>Contact lens solution <span style="font-size:0.78rem;font-style:italic">(must contain boric acid)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="instructions-head">📜 Instructions</div>
+          <ol class="instructions-list">
+            <li>Pour glue into a bowl. Add water and stir until combined.</li>
+            <li>Add green food coloring and stir until the potion turns a deep, murky swamp-green.</li>
+            <li>Add glitter and baking soda. Stir thoroughly — this is your activation base.</li>
+            <li>Add the contact solution one drop at a time, stirring constantly. Watch carefully — the potion will begin to solidify and pull away from the sides.</li>
+            <li>When it holds together but is still gloriously slimy, it is ready. Knead briefly with your hands.</li>
+            <li>Name your potion. Photograph it in the most dramatic way possible.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="potion-purpose" style="background:var(--green-l);border:1px solid #88cc8844">
+        <span class="potion-purpose-head" style="color:var(--green)">⚗️ Purpose &amp; Properties</span>
+        <p class="potion-purpose-text">This potion — technically a magical slime — replicates the sticky, adhesive quality of troll bogeys, which are known to trap small woodland creatures and, according to unverified reports, slow charging trolls by approximately 4%. When applied to a doorstep, it allegedly causes any troll who steps in it to become confused and wander toward a different dungeon entirely. Results may vary. Not recommended for carpet.</p>
+      </div>
+
+      <div class="safety-note">
+        <strong>🧙 Potions Master Note:</strong> The contact solution activates the slime through a chemical reaction with the boric acid. This is actual chemistry — not magic. (Or perhaps magic is just chemistry we haven't fully explained yet.) Adult supervision recommended for young brewers.
+      </div>
+
+      <div class="photo-prompt">
+        <strong>📸 For Your Submission:</strong> Stretch it, drip it dramatically, hold it up to a window for the light — and don't forget to name it. What exactly does yours repel?
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ POTION 2: ELIXIR OF ERISED ═══ -->
+  <div class="potion-card purple">
+    <div class="potion-header">
+      <div class="potion-icon">🪞</div>
+      <div class="potion-title-block">
+        <span class="potion-level">⭐⭐ Intermediate · Ages 8 and up · Adult supervision for the fizzing step</span>
+        <div class="potion-name">Elixir of Erised</div>
+        <div class="potion-latin">Potion of the Heart's Desire</div>
+        <div class="potion-effect-badge">Reveals what you truly want · if you dare to look</div>
+      </div>
+    </div>
+    <div class="potion-body">
+      <div class="potion-lore">
+        <strong>Book One Connection —</strong> In Chapter Twelve, Harry stumbles upon the Mirror of Erised hidden in an unused classroom. The mirror shows not your face, but your heart's desire. Its inscription — <em>Erised stra ehru oyt ube cafru oyt on wohsi</em> — reads backwards: <em>I show not your face but your heart's desire.</em> Dumbledore later tells Harry: <em>"It does not do to dwell on dreams and forget to live."</em> This potion is said to cause a shimmering vision to appear in still water — a reflection of something longed for. The vision fades in minutes. The wanting does not.
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="ingredients-head">🫙 Ingredients</div>
+          <ul class="ingredient-list">
+            <li><span class="ing-icon">💜</span><span class="ing-amount">1 cup</span>Warm water</li>
+            <li><span class="ing-icon">🫧</span><span class="ing-amount">2 tbsp</span>White vinegar</li>
+            <li><span class="ing-icon">🎨</span><span class="ing-amount">5–8 drops</span>Purple food coloring</li>
+            <li><span class="ing-icon">✨</span><span class="ing-amount">1 tsp</span>Silver or purple glitter</li>
+            <li><span class="ing-icon">🫧</span><span class="ing-amount">1 tbsp</span>Dish soap</li>
+            <li><span class="ing-icon">🧂</span><span class="ing-amount">2 tsp</span>Baking soda</li>
+            <li><span class="ing-icon">🌿</span><span class="ing-amount">1 drop</span>Vanilla extract <span style="font-size:0.78rem;font-style:italic">(the scent of longing)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="instructions-head">📜 Instructions</div>
+          <ol class="instructions-list">
+            <li>Fill a tall clear glass or vase with warm water.</li>
+            <li>Add purple food coloring and stir slowly — let it swirl and bloom before fully mixing.</li>
+            <li>Add glitter and stir gently. Watch the light catch it.</li>
+            <li>Add vanilla extract. Note the scent — Dumbledore once said the Mirror shows us what we most desire. What does yours smell like?</li>
+            <li>In a separate small cup, mix dish soap and baking soda together.</li>
+            <li>Pour the vinegar into the tall glass. Immediately add the baking soda mixture. The potion will erupt in a shimmer of purple foam.</li>
+            <li>Lean over the foam. What do you see in it?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="potion-purpose" style="background:var(--purp-l);border:1px solid #cc99ee44">
+        <span class="potion-purpose-head" style="color:var(--purple)">⚗️ Purpose &amp; Properties</span>
+        <p class="potion-purpose-text">The Elixir of Erised is said to produce a shimmering purple foam in which the brewer can briefly perceive a vision of their deepest wish. Unlike the Mirror itself, which can trap a person in dreaming, the Elixir's effect lasts only as long as the foam — reminding the drinker (or viewer) that desire is powerful but fleeting. The vanilla base provides comfort. The eruption provides wonder. The glitter reminds you that some things only shine when everything is a little chaotic.</p>
+      </div>
+
+      <div class="safety-note">
+        <strong>🧙 Potions Master Note:</strong> The vinegar-baking soda reaction produces harmless carbon dioxide gas — the same fizz in your sparkling water. The eruption is real chemistry. Pour over a tray or sink to catch overflow. Food coloring stains — protect your surfaces.
+      </div>
+
+      <div class="photo-prompt">
+        <strong>📸 For Your Submission:</strong> Photograph the moment of eruption if you can — it happens fast. A slow pour from above creates a beautiful layered effect. What did you see in the foam?
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ POTION 3: SNAPE'S DRAUGHT ═══ -->
+  <div class="potion-card teal">
+    <div class="potion-header">
+      <div class="potion-icon">🐍</div>
+      <div class="potion-title-block">
+        <span class="potion-level">⭐⭐⭐ Advanced · All ages · Best for a patient brewer</span>
+        <div class="potion-name">Snape's Logic Draught</div>
+        <div class="potion-latin">The Potion Puzzle · Chapter Sixteen</div>
+        <div class="potion-effect-badge">One moves forward · one allows retreat · choose wisely</div>
+      </div>
+    </div>
+    <div class="potion-body">
+      <div class="potion-lore">
+        <strong>Book One Connection —</strong> In Chapter Sixteen, Hermione and Harry face Snape's challenge: seven bottles of varying shapes, each containing a different liquid. One is poison. One moves forward through the black fire. One allows retreat through the purple. The rest are nettle wine or useless. A riddle tells them which is which. Hermione solves it instantly. <em>"This isn't magic,"</em> she says. <em>"It's logic."</em> This potion recreates those seven bottles as a density column — each liquid settling into its own layer, just as the bottles stood in a line, each containing something different. Your job is to layer them without mixing.
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="ingredients-head">🫙 Ingredients — The Seven Bottles</div>
+          <ul class="ingredient-list">
+            <li><span class="ing-icon">🍯</span><span class="ing-amount">2 tbsp</span>Honey <span style="font-size:0.78rem;font-style:italic">(the heaviest — sinks)</span></li>
+            <li><span class="ing-icon">🔵</span><span class="ing-amount">2 tbsp</span>Blue corn syrup or colored corn syrup</li>
+            <li><span class="ing-icon">🍽️</span><span class="ing-amount">2 tbsp</span>Dish soap <span style="font-size:0.78rem;font-style:italic">(colored if possible)</span></li>
+            <li><span class="ing-icon">💧</span><span class="ing-amount">2 tbsp</span>Water + food coloring of choice</li>
+            <li><span class="ing-icon">🫒</span><span class="ing-amount">2 tbsp</span>Vegetable oil</li>
+            <li><span class="ing-icon">🍶</span><span class="ing-amount">2 tbsp</span>Rubbing alcohol + food coloring</li>
+            <li><span class="ing-icon">🟠</span><span class="ing-amount">2 tbsp</span>Lamp oil <span style="font-size:0.78rem;font-style:italic">or substitute: more vegetable oil + orange coloring</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="instructions-head">📜 Instructions</div>
+          <ol class="instructions-list">
+            <li>Use a tall, narrow, clear glass or cylinder — the taller the better.</li>
+            <li>Pour honey first. Let it settle completely before adding the next layer.</li>
+            <li>Pour corn syrup very slowly down the side of the glass using a spoon.</li>
+            <li>Add dish soap next, also poured gently down the side.</li>
+            <li>Add the colored water. Pour it over the back of a spoon to slow the pour.</li>
+            <li>Add vegetable oil slowly. Do not stir. Wait 30 seconds between each layer.</li>
+            <li>Add rubbing alcohol last — pour it down the side using a spoon. Watch it float.</li>
+            <li>Stand back. Seven layers. Each one distinct. Like the seven bottles in the chamber.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="potion-purpose" style="background:var(--teal-l);border:1px solid #88dddd44">
+        <span class="potion-purpose-head" style="color:var(--teal)">⚗️ Purpose &amp; Properties</span>
+        <p class="potion-purpose-text">Snape designed his challenge not for strength or bravery, but for logic — knowing that most dark wizards are not equipped to reason carefully under pressure. The density column recreates his seven-bottle puzzle: each liquid occupies its own layer because of differences in density, just as each bottle in the chamber held something distinct. The lesson is the same as Hermione's: some of the most powerful magic in the world is simply paying attention. This potion does not move you forward or backward. But making it carefully, without rushing, and watching the layers settle — that is its own kind of magic.</p>
+      </div>
+
+      <div class="safety-note">
+        <strong>🧙 Potions Master Note:</strong> Rubbing alcohol is flammable — keep away from heat sources. Lamp oil substitute (vegetable oil + coloring) works just as well and is completely safe. Do not drink this. The layers will slowly begin to mix after a few hours — photograph it soon after brewing.
+      </div>
+
+      <div class="photo-prompt">
+        <strong>📸 For Your Submission:</strong> Hold the glass up to a window or lamp so the light passes through the layers. Name each bottle — which one moves forward? Which allows retreat? Which are the nettle wine?
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUBMISSION NOTE -->
+<div style="padding:0 2rem 2rem">
+  <div style="background:var(--parch-d);border:1px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem">
+    <div style="font-family:'Cinzel',serif;font-size:0.85rem;color:var(--gold-d);margin-bottom:0.5rem">🏆 How to Submit for House Points</div>
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0.4rem">Photograph your completed potion — the more dramatic, the better. Include your potion's name (invent one if you like!) and a one-line description of what it does.</p>
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0.4rem">Submit by sending your photo to the GroupMe group chat, or text it privately to Tracy at (832) 419-3904. Both earn full points.</p>
+    <p style="font-size:0.88rem;color:var(--muted);font-style:italic">You may brew more than one potion — but only one submission earns House Points. Choose your most spectacular.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="guide-footer">
+  <p>"Potions is not just about following instructions. It is about understanding why."</p>
+  <p style="font-size:0.78rem;color:#c9973a88;margin-top:0.3rem">— Attributed to Professor Snape, though he disputes the warmth of the phrasing</p>
+  <div class="sig">
+    Tracelda N. Tanner · Hogwarts Alumna &amp; Ambassador-at-Large<br>
+    Magical Consultant &amp; Relational Guide · Wand Curator and Conscious Conduit of Craft · Bridger of Realms
+  </div>
+</div>
+
+</body>
+</html>
